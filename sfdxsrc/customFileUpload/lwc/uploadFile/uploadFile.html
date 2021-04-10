@@ -1,0 +1,24 @@
+<!--
+    @description       : 
+    @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+    @group             : 
+    @last modified on  : 12-18-2020
+    @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+    Modifications Log 
+    Ver   Date         Author                               Modification
+    1.0   12-17-2020   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<template>
+    <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
+    <div class="slds-m-around_small">
+        <lightning-input label="" name="file uploader" onchange={handleFilesChange} type="file" multiple></lightning-input>
+    </div>
+    <div class="slds-m-around_small">
+        <template if:true={fileName}>
+            {fileName} &nbsp; &nbsp; {fileSize}
+        </template>
+    </div>
+    <div class="slds-m-around_small">
+        <lightning-button variant="success" label="Upload" title="Upload" onclick={saveFile}></lightning-button>
+    </div>
+</template>
