@@ -40,6 +40,10 @@ Code Explanation
 
 This new LWC Component will help the developer to change the resolution status of the System Event Record
 
+## Record Page
+
+![Rating Component](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/error.png)
+
 ## Contribute to the Utilities
 If you wanted to contribute to the utilities then please follow the steps from below link
 - [Contribute to the Utilities](https://github.com/amitastreait/Salesforce-Short-Hands)

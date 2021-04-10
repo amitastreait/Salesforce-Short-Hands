@@ -1,0 +1,19 @@
+    <!--
+    @description       : 
+    @author            : Amit Singh
+    @group             : 
+    @last modified on  : 12-19-2020
+    @last modified by  : Amit Singh
+    Modifications Log 
+    Ver   Date         Author       Modification
+    1.0   12-19-2020   Amit Singh   Initial Version
+-->
+<template>
+    <lightning-file-upload
+        name="fileUploader"
+        accept={acceptedFormats}
+        record-id={recordId}
+        onuploadfinished={handleUploadFinished}
+        multiple>
+    </lightning-file-upload>
+</template>

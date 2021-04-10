@@ -1,0 +1,10 @@
+<template>
+    <template if:true={typeAttributes.doUpload}>
+        <c-lwc-file-upload record-id={value} accepted-formats={typeAttributes.acceptedFormats} >
+        </c-lwc-file-upload>
+    </template>
+    <template if:false={typeAttributes.doUpload}>
+        Required Documents are provided!
+    </template>
+    
+</template>

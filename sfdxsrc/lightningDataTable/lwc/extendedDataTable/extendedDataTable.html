@@ -1,0 +1,43 @@
+<!--
+    @description       : 
+    @author            : Amit Singh
+    @group             : 
+    @last modified on  : 12-19-2020
+    @last modified by  : Amit Singh
+    Modifications Log 
+    Ver   Date         Author       Modification
+    1.0   12-19-2020   Amit Singh   Initial Version
+-->
+<template>
+    <lightning-card>
+        <lightning-spinner if:true={isLoading} alternative-text="Loading" size="large"></lightning-spinner>
+        <h3 slot="title">
+            <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
+            Extend the Functionality of Lightning Datatable
+        </h3>
+        <div slot="footer">
+                <lightning-badge label="PickList"></lightning-badge>
+                <lightning-badge label="Lookup"></lightning-badge>
+                <lightning-badge label="FileUpload"></lightning-badge>
+                <lightning-badge label="Image"></lightning-badge>
+        </div>
+        <p class="slds-p-horizontal_small">
+            <c-lwc-data-table key-field="id"
+                    data={accounts}
+                    columns={columns}
+                    default-sort-direction={defaultSortDirection}
+                    sorted-direction={sortDirection}
+                    sorted-by={sortedBy}
+                    onsort={onHandleSort}
+                    onsave={handleSave}
+                    draft-values={draftValues} 
+                    onfileuploaded={handleUploadFinished} 
+                    onpicklistchanged={handlePickListChanged}
+                    onvalueselect={handleSelection}
+                    onlookup={handleLookup}
+                    hide-checkbox-column>
+            </c-lwc-data-table>
+        </p>
+    </lightning-card>
+    
+</template>

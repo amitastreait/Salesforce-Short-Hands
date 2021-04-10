@@ -1,0 +1,15 @@
+<template>
+    <template if:false={typeAttributes.showEdit}>
+        <c-lwc-picklist placeholder={typeAttributes.placeholder} 
+            value={value} options={typeAttributes.options} parentrecord={typeAttributes.parentrecord} >
+        </c-lwc-picklist>
+    </template>
+    <template if:true={typeAttributes.showEdit}>
+        <p class="slds-p-left_small">
+            {value} &nbsp;
+        </p>
+        <p class="slds-p-left_small">
+            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit" title="Edit"></lightning-button-icon>
+        </p>
+    </template>
+</template>

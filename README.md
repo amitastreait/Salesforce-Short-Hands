@@ -27,6 +27,8 @@ this will create a new branch and will switch you to your new branch.
 - To create the folder, go to the folder where you have cloned the project and open it. open `sfdxsrc` folder and then create a new folder and the folder name should be based on your utility.
 - Your parent Folder will contain the sub folders to store the metadata. For Example, this parent folder will contain the sub folders like. objects, lwc, classes, staticresources, etc.
 
+![Folders Path](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/folders.PNG)
+
 ## Modify sfdx-project.json file
 
 Next step is to modify `sfdx-project.json` file. Open the project in your VS code and then open the file. Add a new path for your new folder. For Example the folder name is customLookup then new path should be
@@ -36,6 +38,7 @@ Next step is to modify `sfdx-project.json` file. Open the project in your VS cod
    "default": false
 }
 ```
+![Project Path](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/path.PNG)
 
 ## Push the changes to your branch after utility has been developed
 Once you have completed the development of your utility, push the changes to your branch. You can follow the below set of commands to push the changes.
