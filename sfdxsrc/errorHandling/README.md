@@ -42,7 +42,7 @@ This new LWC Component will help the developer to change the resolution status o
 
 ## Record Page
 
-![Rating Component](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/error.png)
+![Rating Component](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/error.PNG)
 
 ## Contribute to the Utilities
 If you wanted to contribute to the utilities then please follow the steps from below link

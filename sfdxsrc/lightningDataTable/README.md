@@ -104,7 +104,7 @@ In order to use this component inside your org you will be needing custom lookup
 To see the complete demo install the code into your salesforce ORG and then drag & drop Extended DataTable component into home page
 
 output
-![DataTable](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/datatable.png)
+![DataTable](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/datatable.PNG)
 
 ## Contribute to the Utilities
 If you wanted to contribute to the utilities then please follow the steps from below link
