@@ -1,18 +1,48 @@
-# Salesforce DX Project: Next Steps
+# Custom Logger Framework : Salesforce
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+Error handling framework will be used to handle the Logs for any custom apex class, flow, lwc or process builder.
 
-## How Do You Plan to Deploy Your Changes?
+## How to use Logger Framework?
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+Create the Object of Logger Object Like Below and pass all the required parameter to the constructor
+`Logger log = new Logger(message, componentName, eventLevel, typex);`
 
-## Configure Your Salesforce DX Project
+If you wanted to add some additional values to the Logger Object. Like Below
+`log.logRecord.ExternalSystem__c = 'Stripe'; `
+`log.logRecord.ExternalReferenceCode__c = String.valueOf(statusCode);`
+`log.logRecord.ExternalSystemResult__c  = detailedError; `
+`log.logRecord.ExternalSystemErrorCodes__c = 'https://stripe.com/docs/error-codes';`
+`log.logRecord.ExternalSystemDocument__c = 'https://stripe.com/docs/api';`
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
 
-## Read All About It
+## Save the Log into the System
+Call the Log method to save the log into the system with the required parameter
+`log.log( UserInfo.getUserId(), detailedError, detailedError, '');`
+Code Explanation
+- UserInfo.getUserId() : The Id of the user who is creating the Log
+- detailedError - The Error Message
+- detailedError - The detailed error message
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+## Save the Log into the System & Send Email to the Users
+If you wanted to Save the log and the log is important to send via email then Call the sendLogEmail method to save the log into the system with the required parameter
+`sendLogEmail(String userId, String emailBody, List<String> emails, String subject);`
+Code Explanation
+- userId : The Id of the user who is creating the Log
+- emailBody - The email body which needs to be sent via email. Note:- this can contain html body as well
+- emails - List of All the Emails whom to send the log
+- subject - The Subject for the Email
+
+## Add the Component into the Recod Details Page
+
+- Open Any System Event record details Page
+- Edit the Record Details Page
+- Drag & Drop customLogger component into the Detail Page
+
+This new LWC Component will help the developer to change the resolution status of the System Event Record
+
+## Contribute to the Utilities
+If you wanted to contribute to the utilities then please follow the steps from below link
+- [Contribute to the Utilities](https://github.com/amitastreait/Salesforce-Short-Hands)
+
+## Share feedback
+Please do share the feedback
