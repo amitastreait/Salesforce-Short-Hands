@@ -1,0 +1,47 @@
+{
+  "packageDirectories": [
+    {
+      "path": "sfdxsrc/unmanaged",
+      "default": true
+    },
+    {
+      "path": "sfdxsrc",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/errorHandling",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/AWS",
+      "default": false
+    },
+    {
+      "path" : "sfdxsrc/lightningDataTable",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/triggerFramework",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/flows",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/metadataUploader",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/fullCalendar",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/projectManagement",
+      "default": false
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "50.0"
+}
