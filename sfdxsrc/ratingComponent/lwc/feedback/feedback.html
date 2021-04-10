@@ -1,0 +1,56 @@
+<!--
+    @description       : 
+    @author            : Amit Singh
+    @group             : 
+    @last modified on  : 12-18-2020
+    @last modified by  : Amit Singh
+    Modifications Log 
+    Ver   Date         Author                               Modification
+    1.0   12-18-2020   Amit Singh   Initial Version
+-->
+<template>
+    <lightning-card title='Skill Set'>
+        <div class="slds-m-top_medium slds-m-bottom_x-small">
+            <div >
+                <lightning-tile label="Salesforce" href="JavaScript:void(0);" type="media">
+                    <c-five-star-rating value="5" onratingchange={handleRatingChanged} ></c-five-star-rating>
+                </lightning-tile>    
+            </div>
+            <div>
+                <lightning-tile label="Integration" href="JavaScript:void(0);" type="media">
+                    <c-five-star-rating value="5" ></c-five-star-rating>
+                </lightning-tile>    
+            </div>
+            <div>
+                <lightning-tile label="Lightning Development" href="JavaScript:void(0);" type="media">
+                    <c-five-star-rating value="5" ></c-five-star-rating>
+                </lightning-tile>    
+            </div>
+            <div >
+                <lightning-tile label="Admin" href="JavaScript:void(0);" type="media">
+                    <c-five-star-rating value="5" ></c-five-star-rating>
+                </lightning-tile>    
+            </div>
+            <div>
+                <lightning-tile label="Communities" href="JavaScript:void(0);" type="media">
+                    <c-five-star-rating value="4" ></c-five-star-rating>
+                </lightning-tile>    
+            </div>
+            <div>
+                <lightning-tile label="CI/CD" href="JavaScript:void(0);" type="media">
+                    <c-five-star-rating value="4" ></c-five-star-rating>
+                </lightning-tile>    
+            </div>
+            <div >
+                <lightning-tile label="Project Management" href="JavaScript:void(0);" type="media">
+                    <c-five-star-rating value="3.5" ></c-five-star-rating>
+                </lightning-tile>    
+            </div>
+            <div >
+                <lightning-tile label="MuleSoft" href="JavaScript:void(0);" type="media">
+                    <c-five-star-rating value="3" ></c-five-star-rating>
+                </lightning-tile>    
+            </div>
+        </div>
+    </lightning-card>
+</template>
