@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExternalSystemResult__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The Error Message Content returned by the External System</inlineHelpText>
+    <label>External System Result</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

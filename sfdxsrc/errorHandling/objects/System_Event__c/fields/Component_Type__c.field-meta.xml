@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Component_Type__c</fullName>
+    <description>Stores the type of automation process component this system event occurred within.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Choose the type of automation process component this system event occurred within.</inlineHelpText>
+    <label>Component Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Apex</fullName>
+                <default>false</default>
+                <label>Apex</label>
+            </value>
+            <value>
+                <fullName>Flow</fullName>
+                <default>false</default>
+                <label>Flow</label>
+            </value>
+            <value>
+                <fullName>External Interface</fullName>
+                <default>false</default>
+                <label>External Interface</label>
+            </value>
+            <value>
+                <fullName>Process Builder</fullName>
+                <default>false</default>
+                <label>Process Builder</label>
+            </value>
+            <value>
+                <fullName>Workflow</fullName>
+                <default>false</default>
+                <label>Workflow</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

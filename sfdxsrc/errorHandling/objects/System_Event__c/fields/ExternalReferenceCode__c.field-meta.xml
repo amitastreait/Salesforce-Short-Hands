@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExternalReferenceCode__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The Status code is returned by the External System</inlineHelpText>
+    <label>External Reference Code</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
