@@ -21,19 +21,11 @@
       "default": false
     },
     {
-      "path": "sfdxsrc/triggerFramework",
-      "default": false
-    },
-    {
       "path": "sfdxsrc/flows",
       "default": false
     },
     {
       "path": "sfdxsrc/metadataUploader",
-      "default": false
-    },
-    {
-      "path": "sfdxsrc/fullCalendar",
       "default": false
     },
     {
