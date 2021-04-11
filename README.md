@@ -2,6 +2,15 @@
 
 This repo is maintained by Amit Singh aka SFDCPanther. The main purpose of this repo is to put all the reusable utility which I have developed so that all others can use them. If you wanted to contribute you can also contribute. How to contribute, check the below steps for the same.
 
+## Features Uploaded - 11 April 2021
+This repository contains the following features
+
+- [Custom File Upload using LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/customFileUpload)
+- [Custom Reusable Lookup for LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/customLookup)
+- [Custom Logger Framework](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/errorHandling)
+- [Extend Lightning DataTable in Lightning Web Component](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/lightningDataTable)
+- [Custom Rating Component using LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/ratingComponent)
+
 ### To contribute your utility must qualify below criterias.
 
 - Utility must be reusable
