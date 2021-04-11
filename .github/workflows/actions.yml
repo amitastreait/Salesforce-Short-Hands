@@ -1,0 +1,54 @@
+#.github/workflows/main.yml
+name: Non-Scratch Org Review
+
+on: 
+  pull_request:
+    branches:
+      - main
+      - release/*
+      - developer
+    types: [ opened, synchronize, reopened, ready_for_review ]
+    paths:
+     - 'sfdxsrc/*'
+  push:
+    branches:
+    - main
+    - release/*
+    - developer
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    if: github.event == 'push'
+    steps:
+      - name: Setup Node Environment
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+      - name: Checkout Local Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout rad-sfdx-cli-action
+        uses: actions/checkout@v2
+        with:
+          repository: redargyle/rad-sfdx-cli-action
+          token: ${{ secrets.DEVOPS_TOKEN }}
+          ref: main
+          path: .github/actions/rad-sfdx-cli-action
+      - name: Checkout rad-ci-action
+        uses: actions/checkout@v2
+        with:
+          repository: redargyle/rad-ci-action
+          token: ${{ secrets.DEVOPS_TOKEN }}
+          ref: main
+          path: .github/actions/rad-ci-action
+      - name: Install SFDX & Authorize Org
+        uses: ./.github/actions/rad-sfdx-cli-action
+        with:
+          sfdx-auth-url: ${{ secrets.AUTH_SECRET }}
+      - name: Validate Changes
+        uses: ./.github/actions/rad-ci-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
