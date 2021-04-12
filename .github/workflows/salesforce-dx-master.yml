@@ -8,9 +8,9 @@ on:
       - main
       paths:
         - 'sfdxsrc/*'
-      paths-ignore:
-        - 'sfdx-project.json'
-        - 'README.md'
+      # paths-ignore:
+        # - 'sfdx-project.json'
+        # - 'README.md'
     workflow_dispatch:
 
 # Jobs to be executed
@@ -59,6 +59,10 @@ jobs:
       # Checkout the source code
       - name: 'Checkout source code'
         uses: actions/checkout@v2
+
+      # Checkout the source code
+      - name: 'Print all the Authorized ORG by SFDX'
+        run: sfdx force:org:list
 
       # Run Salesforce CLI Scanner For Security checks
       - name: 'Scan For Security Exceptions'
