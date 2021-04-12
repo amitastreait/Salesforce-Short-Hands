@@ -3,9 +3,17 @@
     {
       "path": "sfdxsrc/unmanaged",
       "default": true
-    },
+    }, 
     {
       "path": "sfdxsrc",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/customFileUpload",
+      "default": false
+    },
+    {
+      "path": "sfdxsrc/customLookup",
       "default": false
     },
     {
@@ -35,5 +43,5 @@
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "50.0"
+  "sourceApiVersion": "51.0"
 }
