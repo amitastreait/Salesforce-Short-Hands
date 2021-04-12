@@ -1,22 +1,17 @@
 #.github/workflows/main.yml
-name: Action for PUSH
+name: Validate Against QA
 
 on: 
   push:
     branches:
-    - main
-    - release/*
-    - developer
+    - qa
     paths:
     - './sfdxsrc'
-    paths-ignore:
-      - 'sfdx-project.json'
-      - 'README.md'
 
 jobs:
-  Environment Setup:
+  environment-setup:
   
-    name: Environment Setup
+    name: environment-setup
     runs-on: ubuntu-latest
     
     steps:
@@ -68,8 +63,8 @@ jobs:
         run: sfdx force:source:deploy
         
       # Assign permissionset
-      - name: 'Assign permissionset to default user'
-        # run: sfdx force:user:permset:assign -n recipes
+      # - name: 'Assign permissionset to default user'
+      #  run: sfdx force:user:permset:assign -n recipes
         
       # Run Apex tests in scratch org
       - name: 'Run Apex tests'

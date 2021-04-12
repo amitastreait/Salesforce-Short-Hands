@@ -16,34 +16,33 @@ on:
 # Jobs to be executed
 
 jobs:
-  Environment Setup:
-    name: Environment Setup
+  environment-setup:
+  
+    name: environment-setup
     runs-on: ubuntu-latest
     
     steps:
+    
       # Checkout the source code
       - name: 'Checkout source code'
         uses: actions/checkout@v2
 
       # Cache node_modules to speed up the process
-      - name: 'Restore node_modules cache'
-        id: cache-npm
-        uses: actions/cache@v1
+      - name: Setup Node Environment
+        uses: actions/setup-node@v2-beta
         with:
-            path: node_modules
-            key: npm-${{ hashFiles('**/package-lock.json') }}
-            restore-keys: |
-                npm-${{ env.cache-name }}-
-                npm-
-      # Install npm dependencies for Prettier and Jest
-      - name: 'Install npm dependencies'
-        if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: npm ci
-
+          node-version: '12'
+          
+      - name: Install Salesforce CLI
+        run: |
+            npm install sfdx-cli
+            node_modules/sfdx-cli/bin/run --version
+            node_modules/sfdx-cli/bin/run plugins --core
+            
   validate:
     name: Validate
     runs-on: ubuntu-latest
-    if: github.event == 'push'
+    # if: github.event == 'push'
     steps:
       # Install Salesforce CLI
       - name: 'Install Salesforce CLI'
@@ -60,10 +59,6 @@ jobs:
       - name: 'Checkout source code'
         uses: actions/checkout@v2
 
-      # Checkout the source code
-      - name: 'Print all the Authorized ORG by SFDX'
-        run: sfdx force:org:list
-
       # Run Salesforce CLI Scanner For Security checks
       - name: 'Scan For Security Exceptions'
         run: sfdx scanner:run -c=Security -t=./sfdxsrc -f=json -v
@@ -73,7 +68,7 @@ jobs:
         run: sfdx force:source:deploy
         
       # Assign permissionset
-      - name: 'Assign permissionset to default user'
+      # - name: 'Assign permissionset to default user'
         # run: sfdx force:user:permset:assign -n recipes
         
       # Run Apex tests in scratch org
