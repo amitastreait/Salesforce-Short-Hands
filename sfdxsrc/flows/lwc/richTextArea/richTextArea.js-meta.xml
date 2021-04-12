@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Rich Text Area</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <!-- Configuring the design attributes -->
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+
+            <property name="label" type="String" label="Label to Display" default="Message" 
+                        description="The Lable to display"/>
+            <property name="placeholder" type="String" label="Enter the Place Holder" 
+                        description="Enter the Place Holder to display inside text area rich"/>
+            <property name="value" type="String" label="Value to show on text area rich or get from text area rich"
+                        description="Value to show on text area rich or get the value from LWC to Flow Builder"/>
+            <property name="required" type="Boolean" default="false" label="Required?"
+                        description="Indicates if the text area rich field is required or not?"/>
+            <property name="requiredMessage" type="String" default="⚠️ Value is required for this field" 
+                        label="Message when value missing" 
+                        description="The error message to be displayed when the value is missing if the field is required."/>
+            
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,63 @@
+<!--
+    @description       : 
+    @author            : Amit Singh
+    @group             : 
+    @last modified on  : 04-08-2021
+    @last modified by  : Amit Singh
+    Modifications Log 
+    Ver   Date         Author       Modification
+    1.0   04-08-2021   Amit Singh   Initial Version
+-->
+<template>
+
+    <div class="slds-is-relative">
+        <lightning-spinner alternative-text="Loading" size="small" variant="brand" if:true={showSpinner} ></lightning-spinner>
+    </div>
+    
+    <lightning-card  variant="Narrow"  title="AWS SDK" icon-name="custom:custom86">
+        <div class="slds-m-top_medium slds-m-bottom_x-large">
+            <!-- Single file -->
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input type="file" onchange={handleSelectedFiles}></lightning-input>
+                {fileName}
+            </div>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-button class="slds-m-top--medium" label="Upload to AWS S3 bucket" onclick={uploadToAWS}
+                    variant="brand">
+                </lightning-button>
+            </div>
+        </div>
+        <div class="slds-p-horizontal_small">
+            <lightning-button variant="brand" label="List Object" title="List Object" onclick={listS3Objects}></lightning-button>
+            &nbsp;
+            <lightning-button variant="brand" label="Create Bucket" title="Create Bucket" onclick={createS3Bucket}></lightning-button>
+            
+        </div>
+    </lightning-card>
+    <lightning-card  variant="Narrow"  title="Amazon SES" icon-name="custom:custom43">
+        <div class="slds-p-horizontal_small slds-p-top_small">
+            <lightning-button variant="brand" label="Send Email" title="Send Email" onclick={sendSESEmail}></lightning-button>
+            &nbsp;
+            <lightning-button variant="brand" label="List Email" title="List Email" onclick={listSESEmails}></lightning-button>
+            &nbsp;
+            <lightning-button variant="brand" label="Check Identity Status" title="Check Identity Status" onclick={getIdentityVerificationAttributes}></lightning-button>
+            &nbsp;
+        </div>
+    </lightning-card>
+    <lightning-card  variant="Narrow"  title="Amazon EC2" icon-name="custom:custom56">
+        <div class="slds-p-horizontal_small slds-p-top_small">
+            <lightning-button variant="brand" label="Get Access" title="Get Access" onclick={getSerialConsoleAccessStatus}></lightning-button>
+            &nbsp;
+        </div>
+    </lightning-card>
+    <lightning-card  variant="Narrow"  title="Dynamo DB" icon-name="custom:custom89">
+        <div class="slds-p-horizontal_small slds-p-top_small">
+            <lightning-button variant="brand" label="Create Table" title="Create Table" onclick={createTable}></lightning-button>
+            &nbsp;
+            <lightning-button variant="brand" label="Create Table Item" title="Create Table Item" onclick={putTableItem}></lightning-button>
+            &nbsp;
+            <lightning-button variant="brand" label="Query Table" title="Query Table" onclick={queryTable}></lightning-button>
+            &nbsp;
+        </div>
+    </lightning-card>
+</template>

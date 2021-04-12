@@ -1,0 +1,7 @@
+.slds-spinner_container  {
+    /*background-color: rgba(0, 0, 0, 0.10) !important;
+    margin-top: 200px !important;
+    margin-bottom: 200px !important;*/
+    z-index: 10000 !important;
+    position: fixed !important;
+}
