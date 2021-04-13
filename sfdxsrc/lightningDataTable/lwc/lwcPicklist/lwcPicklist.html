@@ -2,22 +2,19 @@
     @description       : 
     @author            : Amit Singh
     @group             : 
-    @last modified on  : 12-19-2020
+    @last modified on  : 04-05-2021
     @last modified by  : Amit Singh
     Modifications Log 
     Ver   Date         Author       Modification
     1.0   12-19-2020   Amit Singh   Initial Version
 -->
 <template>
-    <div class="picklist-container" >
-        <lightning-combobox
-            name={label}
-            label={label}
-            value={value}
-            placeholder={placeholder}
-            options={options}
-            dropdown-alignment="auto"
-            onchange={handleChange} >
-        </lightning-combobox>
-    </div>
+    <lightning-combobox
+        name={label}
+        label={label}
+        value={value}
+        placeholder={placeholder}
+        options={options}
+        onchange={handleChange} >
+    </lightning-combobox>
 </template>

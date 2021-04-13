@@ -1,5 +1,17 @@
 <template>
     <div class="lookup-container" >
+        <!-- <c-lwc-lookup 
+            unique-key={typeAttributes.uniqueId}                
+            obj-name={typeAttributes.object}                   
+            icon-name={typeAttributes.icon}         
+            label-name={typeAttributes.label}                 
+            display-fields={typeAttributes.label}  
+            display-format={typeAttributes.displayFields}      
+            placeholder={typeAttributes.placeholder}        
+            create-record=true                    
+            filters={typeAttributes.filters}                          
+            value-id={typeAttributes.valueId}>                      
+        </c-lwc-lookup> -->
         <div class="picklist-container" >
             <c-search-component
                 obj-name={typeAttributes.object}
@@ -10,8 +22,7 @@
                 display-fields={typeAttributes.displayFields}
                 value-id={typeAttributes.valueId}
                 value-name={typeAttributes.valueName}
-                current-record-id={typeAttributes.currentRecordId} 
-                >
+                current-record-id={typeAttributes.currentRecordId} >
             </c-search-component>
         </div>
     </div>
