@@ -5,7 +5,7 @@ name: Validate Against Production Org
 on:
     push:
       branches:
-      - master
+      - developer
      # paths:
      #   - 'sfdxsrc/*'
       paths-ignore:
@@ -17,35 +17,7 @@ on:
 
 jobs:
 
-  send-email:
-    needs: [environment-setup, validate, deploy, runs-security-check]
-    name: send-email
-    runs-on: uduntu-latest
-    steps:
-        - name: Send mail
-          if: always()
-          uses: dawidd6/action-send-mail@v2
-          with:
-            # mail server settings
-            server_address: smtp.gmail.com
-            server_port: 465
-            # user credentials
-            username: ${{ secrets.EMAIL_USERNAME }}
-            password: ${{ secrets.EMAIL_PASSWORD }}
-            # email subject
-            subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-            # email body as text
-            body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-            # comma-separated string, send email to
-            to: sfdcpanther@gmail.com,amit.a.panther@gmail.com
-            # from email name
-            from: AMIT SINGH
-            # Optional unsigned/invalid certificates allowance:
-            ignore_cert: true
-            # Optional content type (defaults to text/plain):
-            content_type: text/html
-            # Optional converting Markdown to HTML (set content_type to text/html too):
-            convert_markdown: true
+  
   environment-setup:
   
     name: environment-setup
@@ -128,32 +100,6 @@ jobs:
         with:
             flags: Apex
             
-      - name: Send mail
-        
-        if: failure()
-        uses: dawidd6/action-send-mail@v2
-        with:
-            # mail server settings
-            server_address: smtp.gmail.com
-            server_port: 465
-            # user credentials
-            username: ${{ secrets.EMAIL_USERNAME }}
-            password: ${{ secrets.EMAIL_PASSWORD }}
-            # email subject
-            subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-            # email body as text
-            body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-            # comma-separated string, send email to
-            to: sfdcpanther@gmail.com,amit.a.panther@gmail.com
-            # from email name
-            from: AMIT SINGH
-            # Optional unsigned/invalid certificates allowance:
-            ignore_cert: true
-            # Optional content type (defaults to text/plain):
-            content_type: text/html
-            # Optional converting Markdown to HTML (set content_type to text/html too):
-            convert_markdown: true
-            
   deploy:
      needs: [environment-setup, validate]
      name: deploy
@@ -182,32 +128,6 @@ jobs:
      # Assign permissionset
       # - name: 'Assign permissionset to default user'
         # run: sfdx force:user:permset:assign -n recipes
-        
-     # Send Email if Success
-      - name: Send Success-Error Email
-        if: always()
-        uses: dawidd6/action-send-mail@v2
-        with:
-            # mail server settings
-            server_address: smtp.gmail.com
-            server_port: 465
-            # user credentials
-            username: ${{ secrets.EMAIL_USERNAME }}
-            password: ${{ secrets.EMAIL_PASSWORD }}
-            # email subject
-            subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-            # email body as text
-            body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-            # comma-separated string, send email to
-            to: sfdcpanther@gmail.com,amit.a.panther@gmail.com
-            # from email name
-            from: AMIT SINGH
-            # Optional unsigned/invalid certificates allowance:
-            ignore_cert: true
-            # Optional content type (defaults to text/plain):
-            content_type: text/html
-            # Optional converting Markdown to HTML (set content_type to text/html too):
-            convert_markdown: true
             
   runs-security-check:
     name: runs-security-check

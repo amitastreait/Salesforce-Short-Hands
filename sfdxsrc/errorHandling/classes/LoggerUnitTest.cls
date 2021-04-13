@@ -21,8 +21,13 @@ private class LoggerUnitTest {
 	@IsTest
     private static void logTest(){
         Logger log = new Logger('Hello Dynamic Test', 'Anynomous Code', 'Success', 'Apex');
-        log.logRecord.Message_x4__c = '<b> this is test record </b>';
-        log.logRecord.Message_x5__c = '<b> this is test record </b>';
+        log.logRecord.Message_Rich_Text_04__c = '<b> this is test record </b>';
+        log.logRecord.Message_Rich_Text_05__c = '<b> this is test record </b>';
+        log.logRecord.Component_Type__c = 'Apex';
+        log.logRecord.Event_Level__c = 'Error';
+        log.logRecord.Component_Name__c = 'LoggerUnitTest';
+        log.logRecord.Type__c = 'Apex';
+        log.logRecord.Event_DateTime__c = System.now();
         System.runAs( new User( Id = UserInfo.getUserId() ) ) {
             Test.startTest();
             log.log( UserInfo.getUserId(), '<p>Hello this is amit</p>', '<p>Hello this is amit</p>', '<p>Hello this is amit</p>' );
@@ -36,8 +41,13 @@ private class LoggerUnitTest {
     @IsTest
     private static void sendLogEmailText(){
         Logger log = new Logger('Hello Dynamic Test', 'Anynomous Code', 'Success', 'Apex');
-        log.logRecord.Message_x4__c = '<b> this is test record </b>';
-        log.logRecord.Message_x5__c = '<b> this is test record </b>';
+        log.logRecord.Message_Rich_Text_04__c = '<b> this is test record </b>';
+        log.logRecord.Message_Rich_Text_05__c = '<b> this is test record </b>';
+        log.logRecord.Component_Type__c = 'Apex';
+        log.logRecord.Event_Level__c = 'Error';
+        log.logRecord.Component_Name__c = 'LoggerUnitTest';
+        log.logRecord.Type__c = 'Apex';
+        log.logRecord.Event_DateTime__c = System.now();
         System.runAs( new User( Id = UserInfo.getUserId() ) ) {
             Test.startTest();
             log.sendLogEmail( UserInfo.getUserId(), '<p>Hello this is amit</p>',new List<String>{'sfdcpanther@gmail.com'},'Send Email to Admin'  );

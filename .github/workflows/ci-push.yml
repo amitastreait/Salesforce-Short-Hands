@@ -4,7 +4,7 @@ name: Validate Against QA
 on: 
   push:
     branches:
-    - qa
+    - developer
     paths:
     - './sfdxsrc'
 

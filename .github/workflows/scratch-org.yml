@@ -4,11 +4,11 @@ name: Scratch org for review
 on: 
   pull_request:
     branches:
-      - main
+      - developer
       - release/*
   push:
     branches:
-    - main
+    - developer
     - release/*
   workflow_dispatch:
 
