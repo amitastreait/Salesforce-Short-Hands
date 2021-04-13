@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Show_Paging_Picklist__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>True if we want Paging Picklist.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Show Paging Picklist</label>
+    <type>Checkbox</type>
+</CustomField>

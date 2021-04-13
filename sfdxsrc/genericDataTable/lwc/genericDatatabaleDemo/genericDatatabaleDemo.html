@@ -1,0 +1,26 @@
+<!--
+    @description       : 
+    @author            : Amit Singh
+    @group             : 
+    @last modified on  : 03-30-2021
+    @last modified by  : Amit Singh
+    Modifications Log 
+    Ver   Date         Author       Modification
+    1.0   03-30-2021   Amit Singh   Initial Version
+-->
+<template>
+    <lightning-card  variant="Narrow"  title="Generic DataTable" icon-name="standard:account">
+        <p class="slds-p-horizontal_small">
+            <!--SPINNER-->
+            <template if:true={_showSpinner}>
+                <lightning-spinner alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+            </template>
+            <!--SPINNER-->
+            
+            <template if:true={_dataArrive}>
+                <c-generic-data-table-l-w-c result={_result}></c-generic-data-table-l-w-c>
+            </template>
+        </p>
+        
+    </lightning-card>
+</template>

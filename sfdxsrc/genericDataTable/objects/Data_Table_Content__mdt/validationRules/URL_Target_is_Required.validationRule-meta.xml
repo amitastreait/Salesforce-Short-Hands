@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>URL_Target_is_Required</fullName>
+    <active>true</active>
+    <description>The URL Target field is required when data type = URL</description>
+    <errorConditionFormula>AND(ISPICKVAL( DataType__c , &quot;url&quot;), ISBLANK( URL_Target_Field_API_Name__c))</errorConditionFormula>
+    <errorDisplayField>URL_Target_Field_API_Name__c</errorDisplayField>
+    <errorMessage>URL Target required.</errorMessage>
+</ValidationRule>

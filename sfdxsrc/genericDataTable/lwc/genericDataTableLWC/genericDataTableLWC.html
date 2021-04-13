@@ -1,0 +1,96 @@
+<template>
+    <!--SPINNER-->
+    <template if:true={_showSpinner}>
+        <lightning-spinner alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+    </template>
+    <!--SPINNER-->
+    <!--Error-->
+    <template if:true={_errors}>
+        <div class="slds-notify slds-notify_alert slds-theme_error slds-m-vertical_x-small" role="alert">
+            <span class="slds-assistive-text">error</span>
+            <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Error">
+                <lightning-icon icon-name="utility:error" alternative-text="Error" title="Error" size="x-small" variant="inverse"></lightning-icon>
+            </span>
+            <h2>{_errors}</h2>
+        </div>
+    </template>
+    <!--Error-->
+    <!--RECORDS AND SEARCH-->
+    <div class={searchGridClass}>
+        <!--Records To Show-->
+        <template if:true={_showPagingPicklist}>
+            <template if:true={_recordsInPage}>
+                <div class="slds-col">
+                    <div class="slds-grid slds-grid_vertical-align-center">
+                        <div class="slds-col">
+                            <div class="slds-m-horizontal_x-small">Show</div>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12">
+                            <div class="slds-float_left">
+                                <lightning-combobox name="RTS" label="Show" variant="label-hidden" options={_pagingPicklistValues} value={_numOfRecord} onchange={handlePagingChange}></lightning-combobox>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <div class="slds-m-horizontal_x-small">Records</div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </template>
+        <!--Records To Show-->
+        <!--Search Box-->
+        <template if:true={_showSearch}>
+            <template if:true={_recordsInPage}>
+                <div class="slds-col">
+                    <lightning-input label="Search" placeholder="Search" variant="label-hidden" onchange={handleTextChange}></lightning-input>
+                </div>
+            </template>
+        </template>
+        <!--Search Box-->
+    </div>
+    <!--RECORDS AND SEARCH-->
+    <!--Table-->
+    <template if:true={_recordsInPage}>
+        <lightning-datatable
+            key-field={_keyField}
+            columns={_columns}
+            data={_recordsInPage}
+            hide-checkbox-column
+            default-sort-direction={sortDirectionDefault}
+            sorted-direction={sortDirection}
+            sorted-by={sortByUI}
+            onsort={handleSortdata}>>
+        </lightning-datatable>
+
+    </template>
+    <template if:false={_recordsInPage}>
+        <div class="slds-align_absolute-center">
+            <h2>No Items to display.</h2>
+        </div>
+    </template>
+    <!--Table-->
+    <!--Paging-->
+    <template if:true={_showPagination}>
+        <template if:true={_recordsInPage}>
+            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread slds-m-vertical_x-small">
+                <div class="slds-col">
+                    Showing {_startRecord} to {_endRecord} of {_recordCount} records
+                </div>
+                <div class="slds-col">
+                    <div class="slds-align_absolute-center">
+                        <div class="slds-p-horizontal_medium">
+                            <lightning-button-icon icon-name="utility:jump_to_left" alternative-text="First" title="First" onclick={first} disabled={disableFirstAndPrevious}></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:left" alternative-text="Previous" class="slds-m-left_xx-small" title="Previous" onclick={previous} disabled={disableFirstAndPrevious}></lightning-button-icon>
+                        </div>
+                        <span>Page {_pageNumber} / {_maxPage}</span>
+                        <div class="slds-p-horizontal_medium">
+                            <lightning-button-icon icon-name="utility:right" alternative-text="Next" title="Next" onclick={next} disabled={disableNextAndLast}></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:jump_to_right" alternative-text="Last" class="slds-m-left_xx-small" title="Last" onclick={last} disabled={disableNextAndLast}></lightning-button-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </template>
+    <!--Paging-->
+</template>

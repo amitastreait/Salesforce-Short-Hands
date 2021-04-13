@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Paging_Picklist_Values__c</fullName>
+    <description>Comma-separated value for paging picklist.i.e 10,20,30</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Comma-separated value for paging picklist.i.e 10,20,30</inlineHelpText>
+    <label>Paging Picklist Values</label>
+    <required>false</required>
+    <type>TextArea</type>
+</CustomField>
