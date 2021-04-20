@@ -1,5 +1,11 @@
 # Salesforce Utils
 
+[![Validate Against Production Org](https://github.com/amitastreait/Salesforce-Short-Hands/actions/workflows/salesforce-dx-master.yml/badge.svg?branch=master)](https://github.com/amitastreait/Salesforce-Short-Hands/actions/workflows/salesforce-dx-master.yml)
+
+[![Validate Against QA](https://github.com/amitastreait/Salesforce-Short-Hands/actions/workflows/ci-push.yml/badge.svg)](https://github.com/amitastreait/Salesforce-Short-Hands/actions/workflows/ci-push.yml)
+
+[![Enforce branch naming](https://github.com/amitastreait/Salesforce-Short-Hands/actions/workflows/branch-naming.yml/badge.svg)](https://github.com/amitastreait/Salesforce-Short-Hands/actions/workflows/branch-naming.yml)
+
 This repo is maintained by Amit Singh aka SFDCPanther. The main purpose of this repo is to put all the reusable utility which I have developed so that all others can use them. If you wanted to contribute you can also contribute. How to contribute, check the below steps for the same.
 
 ## Features Uploaded - 11 April 2021
@@ -10,6 +16,8 @@ This repository contains the following features
 - [Custom Logger Framework](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/errorHandling)
 - [Extend Lightning DataTable in Lightning Web Component](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/lightningDataTable)
 - [Custom Rating Component using LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/ratingComponent)
+- [Rich Text Area for Flow](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/flows/lwc)
+- [Carousel Component in LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/flows/lwc) - Reference from https://live.playg.app/
 
 ### To contribute your utility must qualify below criterias.
 
@@ -66,5 +74,3 @@ Now, final step from your side is to create a Pull Request from your branch to M
 
 ## Watch the video if you have any confusion.
 [![How to Contribute](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
-
-

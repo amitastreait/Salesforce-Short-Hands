@@ -1,0 +1,7 @@
+.slds-carousel__panel.panel-hide{
+    display: none;
+}
+
+.slds-carousel__panel img{
+    max-height: 60vh !important;
+}

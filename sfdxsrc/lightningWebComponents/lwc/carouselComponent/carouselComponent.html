@@ -1,0 +1,77 @@
+<template>
+    <div class="slds-carousel">
+        <div class="slds-carousel__stage">
+            <template if:true={autoScroll}>
+                <span class="slds-carousel__autoplay">
+                    <template if:false={showPlayIcon}>
+                        <button
+                            class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                            title="Stop auto-play" onclick={togglePlay}>
+                            <lightning-icon icon-name="utility:pause" alternative-text="Stop auto-play"
+                                title="Stop auto-play" size="xx-small">
+                            </lightning-icon>
+                        </button>
+                    </template>
+                    <template if:true={showPlayIcon}>
+                        <button
+                            class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                            title="resume auto-play" onclick={togglePlay}>
+                            <lightning-icon icon-name="utility:play" alternative-text="resume auto-play"
+                                title="resume auto-play" size="xx-small">
+                            </lightning-icon>
+                        </button>
+                    </template>
+                </span>
+            </template>
+            <div class="slds-carousel__panels" style="transform:translateX(-0%)">
+                <template if:true={components}>
+                    <template for:each={components} for:item="component">
+                        <div id={component.contentId} class={component.contentClass} role="tabpanel"
+                            aria-hidden={component.hidden} aria-labelledby={component.indicatorId}
+                            key={component.contentId}>
+                            <template if:true={component.video}>
+                                <div class="slds-carousel__panel-action slds-text-link_reset"
+                                    tabindex={component.tabindex}>
+                                    <div>
+                                        <iframe height="400px" width="100%" src={component.video} frameborder="0"
+                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                    <div class="slds-carousel__content">
+                                        <h2 class="slds-carousel__content-title">{component.header}</h2>
+                                        <p>{component.description}</p>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:false={component.video}>
+                                <a href={component.href} class="slds-carousel__panel-action slds-text-link_reset"
+                                    tabindex={component.tabindex}>
+                                    <div class="slds-carousel__image">
+                                        <img src={component.image} alt={component.header} />
+                                    </div>
+                                    <div class="slds-carousel__content">
+                                        <h2 class="slds-carousel__content-title">{component.header}</h2>
+                                        <p>{component.description}</p>
+                                    </div>
+                                </a>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+            </div>
+            <ul class="slds-carousel__indicators" role="tablist">
+                <template if:true={components}>
+                    <template for:each={components} for:item="component">
+                        <li class="slds-carousel__indicator" role="presentation" key={component.indicatorId}>
+                            <a id={component.indicatorId} data-id={component.id} class={component.indicatorClass}
+                                role="tab" tabindex={component.tabindex} aria-selected={component.active}
+                                aria-controls={component.contentId} title={component.title} onclick={navigate}>
+                                <span class="slds-assistive-text">{component.title}</span>
+                            </a>
+                        </li>
+                    </template>
+                </template>
+            </ul>
+        </div>
+    </div>
+</template>
