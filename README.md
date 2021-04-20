@@ -13,7 +13,6 @@ This repository contains the following features
 
 - [Custom File Upload using LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/customFileUpload)
 - [Custom Reusable Lookup for LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/customLookup)
-- [Custom Logger Framework](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/errorHandling)
 - [Extend Lightning DataTable in Lightning Web Component](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/lightningDataTable)
 - [Custom Rating Component using LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/ratingComponent)
 - [Rich Text Area for Flow](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/flows/lwc)
@@ -71,6 +70,3 @@ Now, final step from your side is to create a Pull Request from your branch to M
 - I will review the changes and if everything is ok, I will merge the branch with master branch and you will be notified via email.
 - If there are any issues, I will create an issue and assign it to you.
 - You can resolve that and then again commit your changes. this time you don not need to raise the pull request.
-
-## Watch the video if you have any confusion.
-[![How to Contribute](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
