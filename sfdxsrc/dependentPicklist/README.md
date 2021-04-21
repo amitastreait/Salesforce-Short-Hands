@@ -1,5 +1,7 @@
 # Picklist-Field-Dependency
 
+![CSV FILE](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/banner.png)
+
 ## Scenarios
 We need to create a dependent picklist between 2 picklists into Salesforce Org, you all might be thinking that you do not need to write apex and it can be done using out of functionality but in my case, we have more than 1K values in both picklists and can be added/removed in future in the short dynamic dependent picklist. In final we have to create 4 dependent picklists on the different objects.
 
@@ -29,7 +31,7 @@ We decided to write the apex code to do the same which also can be used to creat
 
 ## Screenshot for the sample .csv file
 
-![CSV FILE](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/picklist_csv.PNG)
+![CSV FILE](https://github.com/amitastreait/Salesforce-Short-Hands/blob/master/images/picklist_csv.png)
 
 ## Screenshot for the VF Page
 
