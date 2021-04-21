@@ -17,7 +17,7 @@ This repository contains the following features
 - [Custom Rating Component using LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/ratingComponent)
 - [Rich Text Area for Flow](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/flows/lwc)
 - [Carousel Component in LWC](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/flows/lwc) - Reference from https://live.playg.app/
-- [Custom Metadata Uploader](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/flows/metadataUploader)
+- [Custom Metadata Uploader](https://github.com/amitastreait/Salesforce-Short-Hands/tree/master/sfdxsrc/metadataUploader)
 
 ### To contribute your utility must qualify below criterias.
 
