@@ -1,0 +1,35 @@
+<apex:page showHeader="true" sidebar="true" controller="MetadataPicklistController"
+        lightningStylesheets="true">
+    <apex:slds />
+    
+    <div id="spinner" class="slds-spinner_container slds-hidden">
+        <!-- rest of spinner here -->
+        <div class="demo-only demo--inverse" style="height:6rem;position:relative">
+            <div role="status" class="slds-spinner slds-spinner_small slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Heading-->
+    <h1 style="text-align:center;color:green;"> Edit Field Dependency </h1>    
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:form id="theForm" >
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Object API Name</apex:outputLabel> 
+                    <apex:inputText value="{!objectName}" rendered="true" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2"> 
+                <apex:inputFile value="{!csvFileBody}"  filename="{!csvFileName}"/>
+                <apex:commandButton status="Status" value="Update field dependency" 
+                    action="{!updatePicklistField}"
+                    onclick="document.getElementById('spinner').classList.remove('slds-hidden');" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>   
+</apex:page>
