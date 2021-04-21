@@ -1,0 +1,29 @@
+<apex:page lightningStylesheets="true" showHeader="true" sidebar="true" controller="CustomerMetadataUploaderController">
+    <apex:slds />
+    <apex:form id="theForm">
+        <apex:pageMessages ></apex:pageMessages>
+        <div id="spinner" class="slds-spinner_container slds-hidden">
+            <!-- rest of spinner here -->
+            <div class="demo-only demo--inverse" style="height:6rem;position:relative">
+                <div role="status" class="slds-spinner slds-spinner_small slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </div>
+        <apex:pageBlock id="theBlock" title="Metadata Uploader" >
+            <apex:pageBlockSection columns="4" collapsible="false">
+                <apex:outputLabel>Select Custom Metadata</apex:outputLabel>
+                <apex:selectList value="{!metadataName}" multiselect="false" size="1">
+                    <apex:selectOptions value="{!Items}"/>
+                </apex:selectList>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="4" collapsible="false"> 
+                <apex:inputFile value="{!csvFileBody}"  filename="{!csvAsString}"/>
+                <apex:commandButton value="Import Metadata" action="{!importCSVFile}" 
+                    onclick="document.getElementById('spinner').classList.remove('slds-hidden');"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

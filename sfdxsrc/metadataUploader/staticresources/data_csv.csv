@@ -1,0 +1,4 @@
+Label,Name__c,CountryCode__c,Active__c,Active_Date__c,Active_TIme__c,Discount__c,Email__c,Phone__c,Web__c
+India,India,IN,TRUE,2011-01-10,2021-04-20 00:00:00,10,sfdcpanther@gmail.com,2356489712,https://sfdcpanther.com
+United States,United States,US,TRUE,2011-01-10,2021-04-21 00:00:00,10,sfdcpanther@gmail.com,2356489712,https://sfdcpanther.com
+United Kingdom,United Kingdom,UK,FALSE,2011-01-10,2021-04-22 00:00:00,10,sfdcpanther@gmail.com,2356489712,https://sfdcpanther.com

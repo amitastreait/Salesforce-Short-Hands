@@ -1,0 +1,66 @@
+<!--
+    @description       : 
+    @author            : Amit Singh
+    @group             : 
+    @last modified on  : 12-21-2020
+    @last modified by  : Amit Singh
+    Modifications Log 
+    Ver   Date         Author       Modification
+    1.0   12-14-2020   Amit Singh   Initial Version
+-->
+<template>
+    <lightning-card>
+
+        <lightning-spinner if:true={isLoading} alternative-text="Loading" variant="brand" size="small"></lightning-spinner>
+        <h3 slot="title">
+            <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
+            Custom Metadata Uploader
+        </h3>
+
+        <div class="slds-notify slds-notify_alert slds-alert_error" role="alert" if:true={_errors}>
+            <span class="slds-assistive-text">error</span>
+            <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Description of icon when needed">
+            </span>
+            <h2>
+                {_errors}
+            </h2>
+        </div>  
+        <div class="slds-p-horizontal_small">
+            <div class="slds-m-around_large">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-combobox
+                            name="metadataname"
+                            label="Select Metadata"
+                            value={_metadataName}
+                            placeholder="Select Metadata"
+                            options={items}
+                            dropdown-alignment="auto"
+                            required
+                            onchange={handleMdChange} >
+                        </lightning-combobox>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-m-around_large">
+                <lightning-input type="file" label="Select .csv File" onchange={handleFilesChange} accept=".csv"></lightning-input>
+                <p>
+                    {fileName} &nbsp; {fileSize}
+                </p>
+            </div>
+            <div class="slds-p-horizontal_small">
+                <lightning-datatable if:true={_totalErrors}
+                    key-field="id"
+                    data={_errorData}
+                    show-row-number-column
+                    hide-checkbox-column
+                    columns={columns}>
+                </lightning-datatable>
+            </div>
+            <div class="slds-m-around_large">
+                <lightning-button variant="brand" label="Upload Metadata" title="Upload Metadata" onclick={handleUpload}></lightning-button>
+            </div>
+            
+        </div>
+    </lightning-card>
+</template>
