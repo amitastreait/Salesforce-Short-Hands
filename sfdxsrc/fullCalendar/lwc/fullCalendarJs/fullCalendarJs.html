@@ -1,0 +1,83 @@
+<!--
+  @description       : 
+  @author            : Amit Singh
+  @group             : 
+  @last modified on  : 07-13-2020
+  @last modified by  : Amit Singh
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   07-10-2020   Amit Singh   Initial Version
+-->
+<template>
+  <lightning-card  variant="Narrow"  
+    title="Full Calendar" icon-name="standard:event">
+    <div class="slds-grid">
+      <div class="slds-m-around_small">
+        <div id="calendar" class="fullcalendarjs"></div>
+      </div>
+    </div>
+    <template if:true={selectedEvent}>
+      {selectedEvent.title}
+    </template>
+    <!-- Display the Selected Event Details -->
+    <template if:true={selectedEvent} >
+      <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small"
+        aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+              <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Event Details</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+              <lightning-card  variant="Narrow"  title={selectedEvent.title} icon-name="standard:event">
+                  <p class="slds-p-horizontal_small">
+                    Subject : {selectedEvent.title}
+                  </p>
+                  <p class="slds-p-horizontal_small">
+                    StartDate : 
+                    <lightning-formatted-date-time value={selectedEvent.start} year="2-digit" month="short" day="2-digit" weekday="long">
+                    </lightning-formatted-date-time>
+                  </p>
+                  <p class="slds-p-horizontal_small">
+                    EndDate : 
+                    <lightning-formatted-date-time value={selectedEvent.end} year="2-digit" month="short" day="2-digit" weekday="long">
+                    </lightning-formatted-date-time>
+                  </p>
+                  <p class="slds-p-horizontal_small">
+                    Description : {selectedEvent.description}
+                  </p>
+              </lightning-card>
+              
+            </div>
+            <footer class="slds-modal__footer">
+              <button class="slds-button slds-button_brand" onclick={closeModal}>Close</button>
+            </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Display the Created Record Details -->
+    <template if:true={createRecord}>
+      <div class="custom-modal">
+        <section role="dialog" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">
+            <header class="slds-modal__header">
+              <span class="slds-modal__close">
+              </span>
+              <h2 class="slds-text-heading_medium slds-hyphenate">Create Event</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium">
+              Event Form Here
+            </div>
+            <footer class="slds-modal__footer">
+              <lightning-button label="Cancel" title="Cancel" onclick={createCancel} class="slds-m-right_small"></lightning-button>
+              <lightning-button variant="brand" label="Save" title="Save"></lightning-button>
+            </footer>
+          </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+      </div>
+    </template>
+  </lightning-card>
+</template>
