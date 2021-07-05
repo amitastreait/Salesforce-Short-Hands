@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Before_Insert__c</fullName>
+    <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>If True Enables the Trigger for Before Event Context.</inlineHelpText>
+    <label>Is Before Insert</label>
+    <type>Checkbox</type>
+</CustomField>
