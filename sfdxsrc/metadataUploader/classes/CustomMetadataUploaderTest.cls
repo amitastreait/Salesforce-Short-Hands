@@ -1,3 +1,10 @@
+/**
+ * @description       : 
+ * @author            : Amit Singh
+ * @group             : 
+ * @last modified on  : 09-21-2021
+ * @last modified by  : Amit Singh
+**/
 @Istest
 private with sharing class CustomMetadataUploaderTest {
 
@@ -17,6 +24,16 @@ private with sharing class CustomMetadataUploaderTest {
         Test.startTest();
         CustomMetadataUploader.mockedString = body;
         CustomMetadataUploader.uploadFile(body,'Countries__mdt');
+        Test.stopTest();
+    }
+
+	@IsTest
+    private static void testFileUploadForObject(){
+        StaticResource sr = [SELECT Id, Body FROM StaticResource WHERE Name = 'account_data' LIMIT 1];
+        String body = sr.Body.toString();
+        Test.startTest();
+        CustomMetadataUploader.mockedString = body;
+        CustomMetadataUploader.uploadFile(body,'Account');
         Test.stopTest();
     }
 
@@ -60,6 +77,20 @@ private with sharing class CustomMetadataUploaderTest {
         CustomerMetadataUploaderController controller = new CustomerMetadataUploaderController();
         controller.csvFileBody = body;
         controller.metadataName = 'Countries__mdt';
+        controller.importCSVFile();
+        Test.stopTest();
+        
+    }
+
+	@IsTest
+    private static void importCSVFileForObject(){
+
+        StaticResource sr = [SELECT Id, Body FROM StaticResource WHERE Name = 'account_data' LIMIT 1];
+        Blob body = sr.Body;
+        Test.startTest();
+        CustomerMetadataUploaderController controller = new CustomerMetadataUploaderController();
+        controller.csvFileBody = body;
+        controller.metadataName = 'Account';
         controller.importCSVFile();
         Test.stopTest();
         

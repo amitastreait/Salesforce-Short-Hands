@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Singh
  * @group             : 
- * @last modified on  : 12-21-2020
+ * @last modified on  : 09-21-2021
  * @last modified by  : Amit Singh
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -11,6 +11,9 @@
 public with sharing class CustomMetadataUploader implements Metadata.DeployCallback {
 
     public static String mockedString;
+    public static String objectApiName;
+    private static final String DUMMY_ID = Test.getStandardPricebookId();
+
     @TestVisible
     private static MetadataDeploymentResult__e[] eventsToPublish = new MetadataDeploymentResult__e[]{};
 
@@ -22,11 +25,23 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
         for(Schema.SObjectType objTyp : Schema.getGlobalDescribe().Values()){
             Schema.DescribeSObjectResult objectDef = objTyp.getDescribe();
             String name = objectDef.getName();
-            if( name.toLowerCase().contains('__mdt') ){
-                options.add( name );
+            if( ( objectDef.isCreateable() || objectDef.isUpdateable()  ) && objectDef.isAccessible() ){
+                prepareOptions(options, name, objectDef);
             }
         }
         return options;
+    }
+
+    private static void prepareOptions(List<String> options, String name, Schema.DescribeSObjectResult objectDef){
+        if(!name.containsignorecase('history') && !name.containsignorecase('tag') &&
+            !name.containsignorecase('share') && !name.containsignorecase('feed') && !name.containsignorecase('attachment') &&
+            !name.containsignorecase('changeevent') && !name.containsignorecase('apex') ) {
+            if( name.toLowerCase().endsWith('__mdt') || name.toLowerCase().endsWith('__c') ){
+                options.add( name );
+            }else if( objectDef.getRecordTypeInfos().size() > 0 ){
+                options.add( name );
+            }
+        }
     }
     
     @AuraEnabled
@@ -44,13 +59,17 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
         List<String> csvRows = csvFileLines;
         List<String> fieldsList = csvRows[0].split(',');
         csvRows.remove(0); 
-
-        createCustomMetadataCSVRecords( metadataName, csvRows, fieldsList, fieldTypeMap );
-
+        objectApiName = metadataName;
+        
+        if(metadataName.endsWith('__mdt')){
+            createCustomMetadataCSVRecords(csvRows, fieldsList, fieldTypeMap );
+        }else {
+            createUpdateObjectRecords(csvRows, fieldsList, fieldTypeMap);
+        }
         return null;
     }
 
-    public static void createCustomMetadataCSVRecords(String metadataAPIName, List<String> csvRows, List<String> fieldsList, Map<String, String> fieldTypeMap) {
+    public static void createCustomMetadataCSVRecords(List<String> csvRows, List<String> fieldsList, Map<String, String> fieldTypeMap) {
 
         Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
 
@@ -73,7 +92,8 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
                 fieldToValueMap.put( fieldApiName ,  finalValue );
 
             }
-            String fullName = metadataAPIName+'.'+fieldInputValues.get(0).replace(' ', '_');
+            
+            String fullName = objectApiName+'.'+fieldInputValues.get(0).replace(' ', '_');
             String label = fieldInputValues.get(0).replace('_', ' ');
 
             Metadata.CustomMetadata customMetadata = prepareCustomMetadataRecord(fullName, label, fieldToValueMap );
@@ -82,13 +102,67 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
         deployCustomMetadataRecord( mdContainer );
     }
 
+    public static void createUpdateObjectRecords(List<String> csvRows, List<String> fieldsList, Map<String, String> fieldTypeMap){
+        List<sObject> sObjects = new List<sObject>();
+        for(String row : csvRows) {
+            Map<String, Object> fieldToValueMap = new Map<String, Object>();
+            List<String> fieldInputValues = row.split(',');
+            sObject sObjectRecord = Schema.getGlobalDescribe().get(objectApiName).newSObject();
+            for (Integer i = 1; i < fieldsList.size(); i++) {
+                String value = fieldInputValues.get(i).trim();
+                Object finalValue = value ;
+                if(value == 'TRUE'){
+                    finalValue = true;
+                }else if(value == 'FALSE'){
+                    finalValue = false;
+                }
+                String fieldApiName = fieldsList[i].trim();
+                if( fieldTypeMap.containsKey( fieldApiName.toLowerCase() ) ){
+                    finalValue = popupateValues( fieldTypeMap.get( fieldApiName.toLowerCase() ), value );
+                }
+                fieldToValueMap.put( fieldApiName ,  finalValue );
+                sObjectRecord.put(fieldApiName, finalValue);
+            }
+            sObjects.add(sObjectRecord);
+        }
+        upsertRecords(sObjects);
+    }
+
+    private static void upsertRecords(List<SObject> sObjects){
+        SObjectAccessDecision securityDecision = Security.stripInaccessible(AccessType.CREATABLE, sObjects);
+
+        if(securityDecision.getRemovedFields().size() > 0){
+            throw new FieldAccessException('You do not have access to below fields \n '+securityDecision.getRemovedFields());
+        }
+        List<Database.UpsertResult> upsertResults = Database.upsert(securityDecision.getRecords(), false);
+        Boolean success = true;
+        String errorMessage = 'Success';
+        String errorCode = '200';
+        for(Database.UpsertResult upsertResult : upsertResults){
+            if(!upsertResult.isSuccess()){
+                success = false;
+                errorMessage += '\n '+upsertResult.getErrors().get(0).getMessage();
+                errorCode = '500';
+            }
+        }
+        String response = success ? '{ "componentSuccess" : "'+errorMessage +'" }' : '{ "componentFailures" : "'+errorMessage +'" }';
+        MetadataDeploymentResult__e deployResultEvent = new MetadataDeploymentResult__e(
+            JobId__c        = DUMMY_ID,
+            Status__c       = errorCode,
+            Payload__c      = response,
+            ErrorMessage__c = errorMessage
+        );
+        eventsToPublish.add(deployResultEvent);
+        publishEvents(eventsToPublish); 
+    }
+
     public static void deployCustomMetadataRecord(Metadata.DeployContainer mdContainer){
         CustomMetadataUploader callback = new CustomMetadataUploader();
         Id jobId;
         if(!Test.isRunningTest()){
             jobId = Metadata.Operations.enqueueDeployment(mdContainer, callback);
         }else{
-            jobId  = 'a0I0o00001MbaBJ'; 
+            jobId  = DUMMY_ID;
         }
     }
 
@@ -130,7 +204,7 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
     }
     
     public void publishDeployResult(Metadata.DeployResult result) {
-        System.debug(JSON.serialize(result));
+        
         MetadataDeploymentResult__e deployResultEvent = new MetadataDeploymentResult__e(
             JobId__c        = result.id,
             Status__c       = String.valueOf(result.status).toLowerCase(),
@@ -138,16 +212,17 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
             ErrorMessage__c = result.errorMessage
         );
         eventsToPublish.add(deployResultEvent);
+        publishEvents(eventsToPublish);
+    }
 
+    private static void publishEvents(List<MetadataDeploymentResult__e> eventsToPublish) {
         List<Database.SaveResult> results = EventBus.publish(eventsToPublish);
-
         Database.SaveResult sr = results[0];
         if(!sr.isSuccess()) {
             String error = 'Error firing MetadataDeploymentResult__e event.\n' + JSON.serialize(sr.getErrors());
             System.debug(error);
             throw createCustomException(error);
         }
-
     }
 
     public static Map<String, String> fieldsMap(String objectApiName){
@@ -182,5 +257,7 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
     }
 
     public class CustomException extends Exception {}
+
+    public class FieldAccessException extends Exception {}
 
 }

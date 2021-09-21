@@ -1,3 +1,10 @@
+/**
+ * @description       : 
+ * @author            : Amit Singh
+ * @group             : 
+ * @last modified on  : 09-21-2021
+ * @last modified by  : Amit Singh
+**/
 public with sharing class CustomerMetadataUploaderController {
 
     public Blob csvFileBody             { get; set; }
@@ -46,8 +53,8 @@ public with sharing class CustomerMetadataUploaderController {
             List<String> csvRows = csvFileLines;
             List<String> fieldsList = csvRows[0].split(',');
             csvRows.remove(0); //Remove the header row containing field names
-
-            CustomMetadataUploader.createCustomMetadataCSVRecords( metadataName, csvRows, fieldsList, fieldTypeMap );
+            CustomMetadataUploader.objectApiName = metadataName;
+            CustomMetadataUploader.createCustomMetadataCSVRecords( csvRows, fieldsList, fieldTypeMap );
 
         }catch (Exception e){
             ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.severity.ERROR,'An error has occured while importin data Please make sure input csv file is correct');

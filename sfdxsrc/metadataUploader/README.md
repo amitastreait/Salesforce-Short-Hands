@@ -5,6 +5,11 @@ This subrepo helps you to import the custom metadata using
 - VisualForce page
 - Lightning Flow.
 
+## Edit #1
+
+The component now supports the import of custom or standar object record as well.
+The process to prepare the File is same
+Note: - First Column is always reserved for Object API Name
 ## Prepare .csv file
 
 To prepare the .csv file you need to keep the below things in your mind.

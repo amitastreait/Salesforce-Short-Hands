@@ -2,7 +2,7 @@
     @description       : 
     @author            : Amit Singh
     @group             : 
-    @last modified on  : 12-21-2020
+    @last modified on  : 09-21-2021
     @last modified by  : Amit Singh
     Modifications Log 
     Ver   Date         Author       Modification
@@ -10,13 +10,7 @@
 -->
 <template>
     <lightning-card>
-
         <lightning-spinner if:true={isLoading} alternative-text="Loading" variant="brand" size="small"></lightning-spinner>
-        <h3 slot="title">
-            <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
-            Custom Metadata Uploader
-        </h3>
-
         <div class="slds-notify slds-notify_alert slds-alert_error" role="alert" if:true={_errors}>
             <span class="slds-assistive-text">error</span>
             <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Description of icon when needed">

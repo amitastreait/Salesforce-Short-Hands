@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Singh
  * @group             : 
- * @last modified on  : 12-21-2020
+ * @last modified on  : 09-21-2021
  * @last modified by  : Amit Singh
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -108,9 +108,10 @@ export default class CustomMetadataUploader extends LightningElement {
     }
 
     handleDeployResult(result){
+        
         let payload = JSON.parse(result.data.payload.Payload__c);
         this._errorData = payload['componentFailures'];
-        this._totalErrors = this._errorData.length;
+        this._totalErrors = this._errorData ? this._errorData.length: undefined;
         this.isLoading = false;
         if(!this._totalErrors){
             this.dispatchEvent(new ShowToastEvent({
@@ -126,28 +127,6 @@ export default class CustomMetadataUploader extends LightningElement {
             }));
         }
     }
-
-    // handleInputChange(event){
-    //     if(event.target.files.length > 0){
-
-    //         const file = event.target.files[0];
-    //         this.fileName = file.name;
-    //         this.isLoading = true;
-
-    //         Papa.parse(file, {
-    //             quoteChar: '"',
-    //             header: 'true',
-    //             complete: (results) => {
-    //                 this._rows = results.data;
-    //                 this.isLoading = false;
-    //             },
-    //             error: (error) => {
-    //                 console.error(error);
-    //                 this.isLoading = false;
-    //             }
-    //         })
-    //     }
-    // }
 
     handleMdChange(event){
         event.preventDefault();
@@ -194,16 +173,18 @@ export default class CustomMetadataUploader extends LightningElement {
     }
 
     upload = (content) => {
-
+        //alert(this._metadataName);
         this.isLoading = true;        
         uploadFile({ 
             base64Data : JSON.stringify( content ),
             metadataName : this._metadataName
         })
-        .then(result => {
+        .then( () => {
+            //this.isLoading = false;
         })
         .catch(error => {
-            console.error('Error:', error);
+            this.isLoading = false;
+            console.error('Error: \n ', error);
             this._errors = JSON.stringify(error);
         })
         .finally(()=>{
