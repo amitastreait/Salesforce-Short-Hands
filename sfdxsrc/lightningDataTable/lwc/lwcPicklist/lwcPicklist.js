@@ -1,15 +1,16 @@
 /**
- * @description       : 
+ * @description       :
  * @author            : Amit Singh
- * @group             : 
+ * @group             :
  * @last modified on  : 12-19-2020
  * @last modified by  : Amit Singh
- * Modifications Log 
+ * Modifications Log
  * Ver   Date         Author       Modification
  * 1.0   12-19-2020   Amit Singh   Initial Version
 **/
 import { api, LightningElement } from 'lwc';
-
+import { loadStyle } from 'lightning/platformResourceLoader';
+import leaflet from '@salesforce/resourceUrl/CustomDataTable';
 export default class LwcPicklist extends LightningElement {
     @api label;
     @api placeholder;
@@ -17,12 +18,20 @@ export default class LwcPicklist extends LightningElement {
     @api options = [];
     @api parentrecord;
 
+    connectedCallback(){
+        Promise.all([
+            loadStyle(this, leaflet)
+        ]).then(() => {
+            console.log('OUTPUT : '+'Style Loaded');
+        });
+    }
+
     handleChange(event){
         const eventPick = new CustomEvent('picklistchanged', {
             bubbles : true,
             composed : true,
             cancelable : true,
-            detail: {  
+            detail: {
                 data : {
                     selectedValue : event.target.value,
                     relatedRecord : this.parentrecord

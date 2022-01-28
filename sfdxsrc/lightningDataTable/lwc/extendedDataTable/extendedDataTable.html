@@ -1,10 +1,10 @@
 <!--
-    @description       : 
+    @description       :
     @author            : Amit Singh
-    @group             : 
+    @group             :
     @last modified on  : 12-19-2020
     @last modified by  : Amit Singh
-    Modifications Log 
+    Modifications Log
     Ver   Date         Author       Modification
     1.0   12-19-2020   Amit Singh   Initial Version
 -->
@@ -21,7 +21,7 @@
                 <lightning-badge label="FileUpload"></lightning-badge>
                 <lightning-badge label="Image"></lightning-badge>
         </div>
-        <p class="slds-p-horizontal_small">
+        <div class="slds-p-horizontal_small" >
             <c-lwc-data-table key-field="id"
                     data={accounts}
                     columns={columns}
@@ -30,14 +30,13 @@
                     sorted-by={sortedBy}
                     onsort={onHandleSort}
                     onsave={handleSave}
-                    draft-values={draftValues} 
-                    onfileuploaded={handleUploadFinished} 
+                    draft-values={draftValues}
+                    onfileuploaded={handleUploadFinished}
                     onpicklistchanged={handlePickListChanged}
                     onvalueselect={handleSelection}
                     onlookup={handleLookup}
                     hide-checkbox-column>
             </c-lwc-data-table>
-        </p>
+        </div>
     </lightning-card>
-    
 </template>

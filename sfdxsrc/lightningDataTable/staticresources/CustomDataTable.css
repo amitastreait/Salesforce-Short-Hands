@@ -1,11 +1,9 @@
-.picklist-container,
-.lookup-container{
+.picklist-container{
     width : 90%;
     margin: 0 auto;
 }
 
-.picklist-container .slds-dropdown,
-.lookup-container .slds-dropdown{
+.picklist-container .slds-dropdown{
     position: relative !important;
     z-index: 99 !important;
     max-height: 120px;
