@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Additional_Email__c</fullName>
+    <description>Provide the email list comma-separated if there are multiple emails.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Provide the email list comma-separated if there are multiple emails.</inlineHelpText>
+    <label>Additional Email</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

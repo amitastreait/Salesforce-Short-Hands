@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Message_Rich_Text_03__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The additional set of messages if required.</inlineHelpText>
+    <label>Message Rich Text 03</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

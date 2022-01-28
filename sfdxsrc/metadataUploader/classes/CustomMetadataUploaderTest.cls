@@ -1,7 +1,7 @@
 /**
- * @description       : 
+ * @description       :
  * @author            : Amit Singh
- * @group             : 
+ * @group             :
  * @last modified on  : 09-21-2021
  * @last modified by  : Amit Singh
 **/
@@ -11,7 +11,7 @@ private with sharing class CustomMetadataUploaderTest {
     @IsTest
     private static void getItemsTest(){
         Test.startTest();
-        CustomerMetadataUploaderController controller = new CustomerMetadataUploaderController();
+        CustomMetadataUploaderController controller = new CustomMetadataUploaderController();
         controller.getItems();
         CustomMetadataUploader.getItems();
         Test.stopTest();
@@ -48,24 +48,20 @@ private with sharing class CustomMetadataUploaderTest {
 
     @IsTest
     private static void importCSVFileTest(){
-        
         Test.startTest();
-        CustomerMetadataUploaderController controller = new CustomerMetadataUploaderController();
+        CustomMetadataUploaderController controller = new CustomMetadataUploaderController();
         controller.metadataName = '--Select One--';
         controller.importCSVFile();
         Test.stopTest();
-        
     }
 
     @IsTest
     private static void importCSVFileTest1(){
-        
         Test.startTest();
-        CustomerMetadataUploaderController controller = new CustomerMetadataUploaderController();
+        CustomMetadataUploaderController controller = new CustomMetadataUploaderController();
         controller.csvFileBody = null;
         controller.importCSVFile();
         Test.stopTest();
-        
     }
 
     @IsTest
@@ -74,12 +70,11 @@ private with sharing class CustomMetadataUploaderTest {
         StaticResource sr = [SELECT Id, Body FROM StaticResource WHERE Name = 'data_csv' LIMIT 1];
         Blob body = sr.Body;
         Test.startTest();
-        CustomerMetadataUploaderController controller = new CustomerMetadataUploaderController();
+        CustomMetadataUploaderController controller = new CustomMetadataUploaderController();
         controller.csvFileBody = body;
         controller.metadataName = 'Countries__mdt';
         controller.importCSVFile();
         Test.stopTest();
-        
     }
 
 	@IsTest
@@ -88,12 +83,11 @@ private with sharing class CustomMetadataUploaderTest {
         StaticResource sr = [SELECT Id, Body FROM StaticResource WHERE Name = 'account_data' LIMIT 1];
         Blob body = sr.Body;
         Test.startTest();
-        CustomerMetadataUploaderController controller = new CustomerMetadataUploaderController();
+        CustomMetadataUploaderController controller = new CustomMetadataUploaderController();
         controller.csvFileBody = body;
         controller.metadataName = 'Account';
         controller.importCSVFile();
         Test.stopTest();
-        
     }
 
     private static String getDeployResult(){
