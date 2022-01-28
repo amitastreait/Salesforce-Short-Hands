@@ -1,10 +1,10 @@
 /**
- * @description       : 
+ * @description       : Lightning Data Table
  * @author            : Amit Singh
- * @group             : 
+ * @group             : Lightning Web Component
  * @last modified on  : 04-05-2021
  * @last modified by  : Amit Singh
- * Modifications Log 
+ * Modifications Log
  * Ver   Date         Author       Modification
  * 1.0   12-19-2020   Amit Singh   Initial Version
 **/
@@ -29,7 +29,7 @@ export default class LwcDatatable extends LightningDatatable {
         },
         picklist : {
             template: picklistTemplate,
-            typeAttributes: ['label','placeholder', 'options','parentrecord','showEdit'],
+            typeAttributes: ['label','placeholder', 'options','parentrecord','showEdit','class'],
         },
         image : {
             template: imageTemplate,

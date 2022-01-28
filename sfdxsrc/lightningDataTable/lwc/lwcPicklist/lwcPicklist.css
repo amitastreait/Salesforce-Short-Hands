@@ -1,0 +1,6 @@
+.slds-truncate{
+    max-width: 100% !important;
+    /* overflow: hidden; */
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}

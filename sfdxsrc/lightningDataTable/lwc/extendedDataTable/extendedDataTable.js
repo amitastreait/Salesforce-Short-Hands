@@ -1,10 +1,10 @@
 /**
- * @description       : 
+ * @description       : Lightning Data Table
  * @author            : Amit Singh
- * @group             : 
+ * @group             : Lightning Web Component
  * @last modified on  : 12-19-2020
  * @last modified by  : Amit Singh
- * Modifications Log 
+ * Modifications Log
  * Ver   Date         Author       Modification
  * 1.0   12-19-2020   Amit Singh   Initial Version
 **/
@@ -28,35 +28,40 @@ import getAccounts from '@salesforce/apex/AccountDetailsService.getAccounts';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { updateRecord } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
-
+import { loadStyle } from 'lightning/platformResourceLoader';
+import leaflet from '@salesforce/resourceUrl/CustomDataTable';
 const columns = [
     { label: 'Name', fieldName: 'Name', sortable: true, editable: true },
     {
         label: 'Rating', type: 'picklist', fieldName: 'Rating', sortable: true, typeAttributes: {
             label : 'Choose Rating',
-            placeholder: 'Choose rating', 
+            placeholder: 'Choose rating',
             options: [
                 { label: 'Hot', value: 'Hot' },
                 { label: 'Warm', value: 'Warm' },
                 { label: 'Cold', value: 'Cold' },
             ],
-            parentrecord: { fieldName: 'Id' } 
+            parentrecord: { fieldName: 'Id' },
+            class : "slds-truncate"
+        },
+        cellAttributes:{
+            class : "slds-truncate"
         }
     },
-    { label: 'Upload Document', type: 'fileUpload', fieldName: 'Id', 
+    { label: 'Upload Document', type: 'fileUpload', fieldName: 'Id',
         typeAttributes : {
             acceptedFormats : '.jpg,.jpeg,.pdf,.png',
             doUpload : {
                 fieldName   : 'UPLOAD_FILE'
             }
-        } 
+        }
     },
-    { label: 'ICON', type: 'image', fieldName: 'IMAGE_URL', 
+    { label: 'ICON', type: 'image', fieldName: 'IMAGE_URL',
         typeAttributes : {
             alttxt : 'Account Image',
             width  : 50,
             height : 50
-        } 
+        }
     },
     {
         label: 'Parent', fieldName: 'ParentId', type: 'lookup', typeAttributes: {
@@ -85,12 +90,19 @@ export default class ExtendedDataTable extends LightningElement {
     @track error;
     @track draftValues = [];
 
+    connectedCallback(){
+        Promise.all([
+            loadStyle(this, leaflet)
+        ]).then(() => {
+            console.log('OUTPUT : '+'Style Loaded');
+        });
+    }
     @wire(getAccounts)
     wiredData( { error, data } ) {
         if (data) {
             let stringifiedData = JSON.stringify(data);
             let parsedData = JSON.parse(stringifiedData);
-            parsedData.forEach(account => { 
+            parsedData.forEach(account => {
                 account.IMAGE_URL = 'https://greenyards.com.my/wp-content/uploads/2016/09/cropped-Greenyards-icon-01.png';
                 account.UPLOAD_FILE = true;
             });
@@ -126,15 +138,12 @@ export default class ExtendedDataTable extends LightningElement {
     }
 
     handleSave(event) {
-        
         const recordInputs =  event.detail.draftValues.slice().map(draft => {
             const fields = Object.assign({}, draft);
             return { fields };
         });
-        
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
         this.isLoading = true;
-        
         Promise.all(promises).then(record => {
             this.dispatchEvent(
                 new ShowToastEvent({
