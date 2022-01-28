@@ -1,10 +1,10 @@
 /**
- * @description       : 
+ * @description       :
  * @author            : Amit Singh
- * @group             : 
+ * @group             :
  * @last modified on  : 09-21-2021
  * @last modified by  : Amit Singh
- * Modifications Log 
+ * Modifications Log
  * Ver   Date         Author       Modification
  * 1.0   12-20-2020   Amit Singh   Initial Version
 **/
@@ -12,7 +12,7 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
 
     public static String mockedString;
     public static String objectApiName;
-    private static final String DUMMY_ID = Test.getStandardPricebookId();
+    private static final String DUMMY_ID = System.Label.DUMMYID;
 
     @TestVisible
     private static MetadataDeploymentResult__e[] eventsToPublish = new MetadataDeploymentResult__e[]{};
@@ -25,25 +25,26 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
         for(Schema.SObjectType objTyp : Schema.getGlobalDescribe().Values()){
             Schema.DescribeSObjectResult objectDef = objTyp.getDescribe();
             String name = objectDef.getName();
-            if( ( objectDef.isCreateable() || objectDef.isUpdateable()  ) && objectDef.isAccessible() ){
-                prepareOptions(options, name, objectDef);
-            }
+            prepareOptions(options, name, objectDef);
         }
         return options;
     }
 
     private static void prepareOptions(List<String> options, String name, Schema.DescribeSObjectResult objectDef){
         if(!name.containsignorecase('history') && !name.containsignorecase('tag') &&
-            !name.containsignorecase('share') && !name.containsignorecase('feed') && !name.containsignorecase('attachment') &&
-            !name.containsignorecase('changeevent') && !name.containsignorecase('apex') ) {
-            if( name.toLowerCase().endsWith('__mdt') || name.toLowerCase().endsWith('__c') ){
+            !name.containsignorecase('share') && !name.containsignorecase('feed') &&
+            !name.containsignorecase('attachment') && !name.containsignorecase('changeevent') &&
+            !name.containsignorecase('apex') ) {
+            if( name.toLowerCase().endsWith('__mdt') ){
                 options.add( name );
-            }else if( objectDef.getRecordTypeInfos().size() > 0 ){
-                options.add( name );
+            }else if( name.toLowerCase().endsWith('__c') || (
+                    ( objectDef.isCreateable() || objectDef.isUpdateable()  ) && objectDef.isAccessible() ) ){
+                if( objectDef.getRecordTypeInfos().size() > 0 ){
+                    options.add( name );
+                }
             }
         }
     }
-    
     @AuraEnabled
     public static Metadata.DeployContainer uploadFile(String base64Data, String metadataName){
 
@@ -58,9 +59,8 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
 
         List<String> csvRows = csvFileLines;
         List<String> fieldsList = csvRows[0].split(',');
-        csvRows.remove(0); 
+        csvRows.remove(0);
         objectApiName = metadataName;
-        
         if(metadataName.endsWith('__mdt')){
             createCustomMetadataCSVRecords(csvRows, fieldsList, fieldTypeMap );
         }else {
@@ -92,7 +92,6 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
                 fieldToValueMap.put( fieldApiName ,  finalValue );
 
             }
-            
             String fullName = objectApiName+'.'+fieldInputValues.get(0).replace(' ', '_');
             String label = fieldInputValues.get(0).replace('_', ' ');
 
@@ -153,7 +152,7 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
             ErrorMessage__c = errorMessage
         );
         eventsToPublish.add(deployResultEvent);
-        publishEvents(eventsToPublish); 
+        publishEvents(eventsToPublish);
     }
 
     public static void deployCustomMetadataRecord(Metadata.DeployContainer mdContainer){
@@ -167,15 +166,14 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
     }
 
     public static Metadata.CustomMetadata prepareCustomMetadataRecord(String fullName, String label, Map<String, Object> fieldWithValuesMap){
-        
+
         Metadata.CustomMetadata customMetadata =  new Metadata.CustomMetadata();
         customMetadata.fullName = fullName;
         customMetadata.label = label;
-        
         for(String key : fieldWithValuesMap.keySet()){
             Metadata.CustomMetadataValue customField = new Metadata.CustomMetadataValue();
             customField.field = key;
-            customField.value = fieldWithValuesMap.get(key); 
+            customField.value = fieldWithValuesMap.get(key);
             customMetadata.values.add(customField);
         }
         return customMetadata;
@@ -190,6 +188,12 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
             when 'DATETIME' {
                 value = Datetime.valueOf( fieldvalue );
             }
+            when 'CURRENCY', 'DOUBLE' {
+                value = Decimal.valueOf( fieldvalue );
+            }
+            when 'INTEGER' {
+                value = Integer.valueOf( fieldvalue );
+            }
         }
         return value;
     }
@@ -202,9 +206,7 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
         }
         this.publishDeployResult(result);
     }
-    
     public void publishDeployResult(Metadata.DeployResult result) {
-        
         MetadataDeploymentResult__e deployResultEvent = new MetadataDeploymentResult__e(
             JobId__c        = result.id,
             Status__c       = String.valueOf(result.status).toLowerCase(),
@@ -239,8 +241,14 @@ public with sharing class CustomMetadataUploader implements Metadata.DeployCallb
             Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
             if( fieldDescribe.getType() == Schema.DisplayType.DATE ){
                 fieldTypeMap.put( fieldDescribe.getName().toLowerCase() , 'DATE' );
-            }else if( fieldDescribe.getType() == Schema.DisplayType.DATETIME ){ 
+            }else if( fieldDescribe.getType() == Schema.DisplayType.DATETIME ){
                 fieldTypeMap.put( fieldDescribe.getName().toLowerCase() , 'DATETIME');
+            }else if(fieldDescribe.getType() == Schema.DisplayType.CURRENCY){
+                fieldTypeMap.put( fieldDescribe.getName().toLowerCase() , 'CURRENCY');
+            }else if(fieldDescribe.getType() == Schema.DisplayType.DOUBLE){
+                fieldTypeMap.put( fieldDescribe.getName().toLowerCase() , 'DOUBLE');
+            }else if(fieldDescribe.getType() == Schema.DisplayType.INTEGER){
+                fieldTypeMap.put( fieldDescribe.getName().toLowerCase() , 'INTEGER');
             }
         }
         return fieldTypeMap;
