@@ -1,10 +1,11 @@
+<!-- sldsValidatorIgnore -->
 <!--
-    @description       : 
+    @description       :
     @author            : Amit Singh
-    @group             : 
-    @last modified on  : 12-20-2020
+    @group             :
+    @last modified on  : 12-29-2021
     @last modified by  : Amit Singh
-    Modifications Log 
+    Modifications Log
     Ver   Date         Author       Modification
     1.0   12-20-2020   Amit Singh   Initial Version
 -->
@@ -12,15 +13,47 @@
 
     <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
     <div class="slds-form-element">
-        <label class="slds-form-element__label" for="combobox-id-1">{labelName}</label>
+        <template if:true={showLabel}>
+            <label class="slds-form-element__label" for="combobox-id-1">{labelName}</label>
+        </template>
+
+        <!-- Display the create new record modal -->
+        <div if:true={showModal}>
+            <section if:true={showModal} role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button onclick={handleCancel} class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href={ICON_URL_CLOSE}></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Add New Record</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning-record-form
+                            object-api-name={objName}
+                            record-type-id={recordTypeId}
+                            oncancel={handleCancel}
+                            fields={fieldsToCreate}
+                            onsuccess={handleSuccess}
+                            columns="2">
+                        </lightning-record-form>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+
         <div class="slds-form-element__control">
             <div class="slds-combobox_container">
                 <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox">
                     <template if:false={selectedRecord}>
                         <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
-                            <input type="text" onchange={handleInputChange} onkeyup={handleInputChange} onkeydown={handleInputChange}
-                            class="slds-input slds-combobox__input" 
-                            id="combobox-id-1" aria-autocomplete="list" aria-controls="listbox-id-1" autocomplete="off" 
+                            <input type="text" onfocus={handleInputChange} onchange={handleInputChange} onkeyup={handleInputChange} onkeydown={handleInputChange}
+                            class="slds-input slds-combobox__input"
+                            id="combobox-id-1" aria-autocomplete="list" aria-controls="listbox-id-1" autocomplete="off"
                             role="textbox" placeholder={placeholder} />
                             <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
                             <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
@@ -30,6 +63,22 @@
                         </div>
                         <div style="background: white;" id="listbox-id-1" class="slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
                             <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <li onclick={handleNewRecord} if:true={showButton} role="presentation" class="slds-listbox__item">
+                                    <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                        <span class="slds-media__figure slds-listbox__option-icon">
+                                            <span class="slds-icon_container slds-icon-standard-account">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use xlink:href={ICON_URL_NEW}></use>
+                                            </svg>
+                                            </span>
+                                        </span>
+                                        <span class="slds-media__body">
+                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                                New {objectLabel}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </li>
                                 <template if:true={searchRecords} for:each={searchRecords} for:item="record" for:index="index">
                                     <li onclick={handleSelect} role="presentation" class="slds-listbox__item" data-record-id={record.Id} key={record.Id}>
                                         <div data-id={record.Id} class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
@@ -55,27 +104,12 @@
                         </div>
                     </template>
                     <template if:true={selectedRecord}>
-                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
-                            <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon" 
-                            title={objectLabel}>
-                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                    <use xlink:href={ICON_URL}></use>
-                                </svg>
-                                <span class="slds-assistive-text">{objectLabel}</span>
-                            </span>
-                            <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value" 
-                                    id="combobox-id-5" aria-controls="listbox-id-5"  disabled
-                                    autocomplete="off" role="textbox" placeholder="Select an Option…" 
-                                    readonly="" value={selectedRecord.FIELD1}
-                            />
-                            <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" 
-                                title="Remove selected option" onclick={handleClose}>
-                                <svg class="slds-button__icon" aria-hidden="true">
-                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
-                                </svg>
-                                <span class="slds-assistive-text">Remove selected option</span>
-                            </button>
-                        </div>
+                        <c-selected-record icon-url={ICON_URL}
+                            record={selectedRecord}
+                            onclose={handleClose}
+                            show-label=false
+                            index={index} object-label={objectLabel} >
+                        </c-selected-record>
                     </template>
                 </div>
             </div>

@@ -1,0 +1,42 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<!--
+    @description       :
+    @author            : Amit Singh
+    @group             :
+    @last modified on  : 12-21-2021
+    @last modified by  : Amit Singh
+-->
+<template>
+    <div class="slds-form-element">
+        <label if:false={showLabel} class="slds-form-element__label" for="combobox-id-5" id="combobox-label-id-32">{objectLabel}</label>
+        <div class="slds-form-element__control">
+            <div class="slds-combobox_container slds-has-selection">
+                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                        <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon" title={objectLabel}>
+                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                <use xlink:href={iconUrl}></use>
+                            </svg>
+                        <!-- sldsValidatorIgnoreNextLine -->
+                            <span class="slds-assistive-text">Account</span>
+                        <!-- sldsValidatorIgnoreNextLine -->
+                        </span>
+                        <button type="button" class="slds-input_faux slds-combobox__input slds-combobox__input-value" aria-labelledby="combobox-label-id-32 combobox-id-5-selected-value" id="combobox-id-5-selected-value" aria-controls="listbox-id-5" aria-expanded="false"
+                            aria-haspopup="listbox">
+                            <span class="slds-truncate" id="combobox-value-id-19">
+                                {record.FIELD1}
+                            </span>
+                        </button>
+                        <button onclick={handleRemove} class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Remove selected option">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Remove selected option</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
