@@ -19,7 +19,7 @@ export default class RichTextArea extends LightningElement {
             return;
         }
         this.rendered = true;
-        if( this.required ) {
+        if(this.required && !this.value){
             let textArea = this.template.querySelector('lightning-input-rich-text');
             textArea.required = true;
         }
