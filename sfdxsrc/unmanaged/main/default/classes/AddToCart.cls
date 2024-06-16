@@ -6,14 +6,14 @@
  * @last modified by  : Amit Singh - PantherSchools
 **/
 public with sharing class AddToCart {
-    public AddToCart() {
-
-    }
 
     public static void addCart(){
 
     }
     public static void fetchActiveCart(){
 
+    }
+    public static void fetchPastCart(){
+    
     }
 }
