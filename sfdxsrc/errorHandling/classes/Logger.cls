@@ -2,8 +2,8 @@
  * @description       : 
  * @author            : Amit Singh
  * @group             : 
- * @last modified on  : 03-23-2021
- * @last modified by  : Amit Singh
+ * @last modified on  : 06-16-2024
+ * @last modified by  : Amit Singh - PantherSchools
  * Modifications Log 
  * Ver   Date         Author       Modification
  * 1.0   03-23-2021   Amit Singh   Initial Version
@@ -121,9 +121,19 @@ global without sharing class Logger {
         
         List<String> permissionSets = getPermissionSets();
         
+        //logRecord.Permission_Set_Group__c = permissionSets.get(1);
+        //logRecord.Permission_Set__c		= permissionSets.get(0);
         logRecord.Permission_Set_Group__c = permissionSets.get(1);
         logRecord.Permission_Set__c		= permissionSets.get(0);
         return logRecord;
+    }
+
+    public static void logAsync(){
+        
+    }
+
+    public static void log(){
+        
     }
     
     global class ErrorLog {
