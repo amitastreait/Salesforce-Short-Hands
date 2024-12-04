@@ -125,6 +125,9 @@ global without sharing class Logger {
         logRecord.Permission_Set__c		= permissionSets.get(0);
         return logRecord;
     }
+    public static void testGithubLearnChanges(){
+        System.debug('Testing Aman');
+    }
     
     global class ErrorLog {
         @InvocableVariable(required=true)
