@@ -1,9 +1,9 @@
 /**
- * @description       :
+ * @description       : 
  * @author            : Amit Singh
- * @group             :
- * @last modified on  : 12-21-2021
- * @last modified by  : Amit Singh
+ * @group             : 
+ * @last modified on  : 05-12-2024
+ * @last modified by  : Wasef Mohiuddin
 **/
 public with sharing class SearchController {
     @AuraEnabled
@@ -18,7 +18,14 @@ public with sharing class SearchController {
             String soqlQuery = 'SELECT Id, Name, Type, LastViewedDate FROM RecentlyViewed WHERE Type =\''+objectName+'\' ORDER BY LastViewedDate DESC LIMIT 5';
             sobjList = Database.query( soqlQuery );
             searchRecords.add(sobjList);
-        }else{
+        } 
+        //Since SOSL has a minimum limit, included this for the first couple characters, as it was giving errors
+        else if(searchTerm.length()<3){
+            String soqlQuery = 'SELECT Id, '+String.join(fields,',')+' FROM '+objectName+' WHERE Name LIKE \'%'+searchTerm+'%\' LIMIT 5';
+            sobjList = Database.query( soqlQuery );
+            searchRecords.add(sobjList);
+        }
+        else{
             searchRecords = Search.Query(Query);
         }
         return searchRecords.get(0);
